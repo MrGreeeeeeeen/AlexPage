@@ -1,0 +1,576 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    width: 100%;
+    overflow-x: hidden;  
+    
+}
+
+body {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* Остальные стили */
+:root {
+    --primary-color: #a334dba0; /* или любой другой цвет по вашему выбору */
+}
+header {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    text-align: center;
+    padding: 2vh 2vw;
+    position: relative;
+    overflow: hidden;
+    min-height: 130px;
+    max-height: 25vh;
+}
+
+.header {
+    max-width: 90%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    margin: 2vh 0 1vh;
+}
+
+header .subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    margin-bottom: 1vh;
+}
+
+header .description {
+    font-size: clamp(1.1rem, 2.8vw, 1.4rem);
+    margin-bottom: 1vh;
+    transition: all 0.3s ease;
+}
+
+header .description:hover {
+    transform: translateY(-2px);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+@media (max-width: 768px) {
+    header {
+        padding: 1vh 1vw;
+    }
+
+    .header {
+        max-width: 95%;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 768px) {
+    header {
+        max-height: 40vh;
+    }
+}
+
+/* Стили для мобильного ярлыка */
+.mobile-label {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.mobile-label:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+    #serviceBubble {
+        display: none;
+    }
+
+    .mobile-label {
+        display: block;
+    }
+}
+
+
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+
+#about {
+    padding: 10px;
+    background-color: #f9f9f9;
+
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+}
+.container h3 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 600;
+
+}
+
+.about-header {
+    flex: 0 0 48%; /* Занимает 48% ширины контейнера */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.about-education {
+    flex: 0 0 50%; /* Занимает 50% ширины контейнера */
+    margin-left: 4%; /* Отступ между блоками */
+    margin-right: 4%;
+}
+
+@media (max-width: 896px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        margin-left: -17px;
+    }
+
+    .about-header,
+    .about-education {
+        flex: 0 0 100%;
+        max-width: 95%; /* Ограничиваем ширину на мобильных устройствах */
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .education-block {
+        width: 110%; /* Блоки занимают всю доступную ширину */
+    }
+    .education-block h3 {
+        width:100%; /* Блоки занимают всю доступную ширину */
+    }
+}
+
+
+.about-education h3 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    text-align: center;
+    font-weight: 550;
+    margin-top: 5px;
+}
+
+.education-block {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.education-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+.education-block h4 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.education-block ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.education-block ul li {
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 30px;
+    font-size: 1.1rem;
+}
+
+.education-block ul li::before {
+    content: "•";
+    color: var(--secondary-color);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    position: absolute;
+    left: 0;
+}
+
+.about-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+}
+
+.about-content img {
+    max-width: 350px;
+    border-radius: 50%;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+.about-content img:hover {
+    transform: scale(1.05);
+}
+
+
+    footer {
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        color: white;
+        padding: 20px 0;
+        width: 100%;
+        box-sizing: border-box;
+        position: relative;
+        margin-top: 20px;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .footer-row {
+        display: flex;
+        align-items: start;
+    }
+
+    .social-links {
+        display:flex;
+        gap:1px;
+    }
+
+    .social-icon {
+        font-size: 24px;
+        color: white;
+        text-decoration: none;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .social-icon:hover {
+        transform: scale(1.2);
+        color: #f0f0f0;
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-left: 5px;
+    }
+
+    .info p {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .footer-content img {
+        max-width: 45px;
+        border-radius: 50%;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .footer-content img:hover {
+        transform: scale(1.1);
+    }
+
+
+    
+
+
+
+@keyframes colorfulShadow {
+    0% { box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), inset 0 0 20px rgba(255, 0, 0, 0.5); }
+    25% { box-shadow: 0 0 30px rgba(0, 255, 0, 0.8), inset 0 0 20px rgba(0, 255, 0, 0.5); }
+    50% { box-shadow: 0 0 30px rgba(0, 0, 255, 0.8), inset 0 0 20px rgba(0, 0, 255, 0.5); }
+    75% { box-shadow: 0 0 30px rgba(255, 255, 0, 0.8), inset 0 0 20px rgba(255, 255, 0, 0.5); }
+    100% { box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), inset 0 0 20px rgba(255, 0, 0, 0.5); }
+}
+.bubble, .expanded-bubble {
+    width: 166px;
+    height: 166px;
+    border-radius: 50%;
+    background-size: 200% 200%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    padding: 20px;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1000;
+    animation: colorfulShadow 10s infinite linear;
+}
+
+
+
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+.expanded-bubble {
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    background-size: 200% 200%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+    animation: colorfulShadow 10s infinite linear;
+    overflow: hidden;
+}
+
+
+.expanded-bubble h2 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    animation: glow 1s ease-in-out infinite alternate; /* Изменено время анимации с 2s на 4s */
+}
+
+
+.expanded-bubble input,
+.expanded-bubble textarea {
+    width: 90%;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 0.9rem;
+}
+
+.expanded-bubble button {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    max-width: 150px;
+}
+
+.expanded-bubble .social-links {
+    margin-top: 9px;
+    margin-left: 10px;
+    gap:20px
+}
+
+.expanded-bubble .social-icon {
+    font-size: 2rem;
+    margin: 0 0.2px;
+}
+
+.expanded-bubble .social-icon:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+
+
+
+
+.bubble input, .bubble textarea, .expanded-bubble input, .expanded-bubble textarea {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.668);
+    color: #333;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    margin-right:15px ;
+}
+
+.bubble button, .expanded-bubble button {
+    background-color: #6efb9674;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+
+.bubble button:hover, .expanded-bubble button:hover {
+    background-color: #19cc7863;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+}
+.social-icon {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.social-icon:hover {
+    transform: scale(1.2);
+    color: #51b7df;
+}
+.social-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    transition: transform 0.3s ease;
+    
+}
+
+.social-links a:hover {
+    transform: scale(1.3);
+}
+
+.close-button {
+    position: fixed;
+    top: 190px;
+    right: 13px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+
+    .bubbleplace {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .bubbleplace input,
+    .bubbleplace textarea,
+    .bubbleplace button {
+        width: 100%;
+        margin-bottom: 10px;
+        padding-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 40px;
+        margin-top: 10px;
+    }
+
+.expanded-bubble h2{
+    margin-top:20px ;
+}#serviceBubble {
+    opacity: 0;
+    transform: scale(0.5) translateY(50px);
+    transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+#serviceLabel {
+    width: 200px; /* Установите желаемую ширину */
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.201);
+    transition: all 0.3s ease;
+    margin-bottom: 75px;
+    cursor: pointer;
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    padding: 10px 15px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    white-space: nowrap; /* Предотвращает перенос текста */
+    overflow: hidden; /* Скрывает текст, который не помещается */
+    text-overflow: ellipsis; /* Добавляет многоточие в конце, если текст не помещается */
+    text-align: center;
+}
+
+
+#serviceLabel:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
