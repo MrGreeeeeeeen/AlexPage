@@ -38,7 +38,7 @@ header {
     position: relative;
     overflow: hidden;
     min-height: 130px;
-    max-height: 25vh;
+    max-height: 2vh;
 }
 
 .header {
@@ -65,9 +65,12 @@ header .description {
 }
 
 header .description:hover {
-    transform: translateY(-2px);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.3),
+        -2px -2px 4px rgba(255, 255, 255, 0.3);
 }
+
 
 
 @media (max-width: 768px) {
@@ -90,6 +93,7 @@ header .description:hover {
 .mobile-label {
     display: block;
     position: fixed;
+    left: 20px;
     bottom: 20px;
     right: 20px;
     color: white;
@@ -108,14 +112,62 @@ header .description:hover {
 }
 
 @media (max-width: 768px) and (orientation: portrait) {
+    body {
+        padding: 0;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+
+    .about-header,
+    .about-education,
+    .education-block {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .header {
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
     #serviceBubble {
         display: none;
     }
 
     .mobile-label {
         display: block;
+        left: 15px;
+        right: 15px;
+    }
+
+    footer .social-icon:hover {
+        margin-right: 0;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .footer-row {
+        margin-bottom: 10px;
     }
 }
+
 
 
 
@@ -167,34 +219,50 @@ header .description:hover {
     margin-left: 4%; /* Отступ между блоками */
     margin-right: 4%;
 }
+ @media (max-width: 896px) {
+     .container {
+         flex-direction: column;
+         align-items: center;
+     }
 
-@media (max-width: 896px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-        margin-left: -17px;
-    }
+     .about-header,
+     .about-education {
+         flex: 0 0 100%;
+         max-width: 95%;
+         margin-left: auto;
+         margin-right: auto;
+         margin-bottom: 30px;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+     }
 
-    .about-header,
-    .about-education {
-        flex: 0 0 100%;
-        max-width: 95%; /* Ограничиваем ширину на мобильных устройствах */
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 30px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+     .education-block {
+         width: 90%;
+         margin: 15px auto; /* Добавляем одинаковые отступы сверху и снизу */
+         padding: 20px; /* Уменьшаем внутренние отступы для мобильных устройств */
+     }
 
+     .education-block h3 {
+         width: 100%;
+         margin-bottom: 15px; /* Добавляем отступ снизу для заголовка */
+     }
 
-    .education-block {
-        width: 110%; /* Блоки занимают всю доступную ширину */
-    }
-    .education-block h3 {
-        width:100%; /* Блоки занимают всю доступную ширину */
-    }
-}
+     .education-block h4 {
+         margin-top: 15px; /* Добавляем отступ сверху для подзаголовков */
+         margin-bottom: 10px;
+     }
+
+     .education-block p,
+     .education-block ul {
+         width: 100%;
+         margin-bottom: 15px; /* Добавляем отступ снизу для параграфов и списков */
+     }
+
+     .education-block ul li {
+         margin-bottom: 10px; /* Уменьшаем отступ между элементами списка */
+     }
+ }
 
 
 .about-education h3 {
@@ -206,24 +274,27 @@ header .description:hover {
 }
 
 .education-block {
+    width: 100%;
+    margin: 15px 0;
+    padding: 20px;
+    box-sizing: border-box;
     background-color: #fff;
     border-radius: 15px;
-    padding: 30px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
-.education-block:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-}
 .education-block h4 {
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     color: var(--secondary-color);
-    margin-bottom: 20px;
-    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.education-block p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
 }
 
 .education-block ul {
@@ -232,10 +303,11 @@ header .description:hover {
 }
 
 .education-block ul li {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     position: relative;
-    padding-left: 30px;
-    font-size: 1.1rem;
+    padding-left: 20px;
+    font-size: 1rem;
+    line-height: 1.4;
 }
 
 .education-block ul li::before {
@@ -247,6 +319,37 @@ header .description:hover {
     position: absolute;
     left: 0;
 }
+
+@media (max-width: 768px) {
+    .education-block {
+        padding: 15px;
+    }
+
+    .education-block h4 {
+        font-size: 1.2rem;
+    }
+
+    .education-block p,
+    .education-block ul li {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .education-block {
+        padding: 10px;
+    }
+
+    .education-block h4 {
+        font-size: 1.1rem;
+    }
+
+    .education-block p,
+    .education-block ul li {
+        font-size: 0.9rem;
+    }
+}
+
 
 .about-content {
     display: flex;
@@ -290,14 +393,8 @@ header .description:hover {
         align-items: start;
     }
 
-    .social-links {
-        display:flex;
-        gap:1px;
-        padding-right: 4px;
-    }
-
+    /* Общие стили для социальных иконок */
     .social-icon {
-        font-size: 24px;
         color: white;
         text-decoration: none;
         transition: transform 0.3s ease, color 0.3s ease;
@@ -305,8 +402,41 @@ header .description:hover {
 
     .social-icon:hover {
         transform: scale(1.2);
+    }
+
+    /* Стили для социальных иконок в footer */
+    footer .social-links {
+        display: flex;
+        gap: 1px;
+        padding-right: 4px;
+    }
+
+    footer .social-icon {
+        font-size: 24px;
+    }
+
+    footer .social-icon:hover {
         color: #f0f0f0;
     }
+
+    /* Стили для социальных иконок в bubble */
+    .expanded-bubble .social-links {
+        margin-top: 9px;
+        margin-left: 10px;
+        gap: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .expanded-bubble .social-icon {
+        font-size: 2rem;
+        margin: 0 0.2px;
+    }
+
+    .expanded-bubble .social-icon:hover {
+        color: #51b7df;
+    }
+
 
     .info {
         display: flex;
@@ -520,25 +650,25 @@ header .description:hover {
 }
 
 
-    .bubbleplace {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-    }
+.bubbleplace {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
 
-    .bubbleplace input,
-    .bubbleplace textarea,
-    .bubbleplace button {
-        width: 100%;
-        margin-bottom: 10px;
-        padding-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 40px;
-        margin-top: 10px;
-    }
+.bubbleplace input,
+.bubbleplace textarea,
+.bubbleplace button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    margin-top: 10px;
+}
 
 .expanded-bubble h2{
     margin-top:20px ;
@@ -547,31 +677,54 @@ header .description:hover {
     transform: scale(0.5) translateY(50px);
     transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
-#serviceLabel {
-    width: 200px; /* Установите желаемую ширину */
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.201);
-    transition: all 0.3s ease;
-    margin-bottom: 75px;
-    cursor: pointer;
-    position: fixed;
-    left: 20px;
-    bottom: 20px;
-    z-index: 1000;
-    padding: 10px 15px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #6e8efb, #a777e3);
-    color: white;
-    white-space: nowrap; /* Предотвращает перенос текста */
-    overflow: hidden; /* Скрывает текст, который не помещается */
-    text-overflow: ellipsis; /* Добавляет многоточие в конце, если текст не помещается */
-    text-align: center;
-}
 
+    #serviceLabel {
+        width: 15px;
+        height: 210px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.201);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: fixed;
+        left: 8px;
+        top: 35%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        padding: 15px 10px;
+        border-radius: 0 20px 20px 0;
+        color: white;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+    }
 
-#serviceLabel:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
+    #serviceLabel:hover {
+        left: 0;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+        transform: scale(1.05);
+    }
 
+    .animate-gradient {
+        background: linear-gradient(45deg, 
+            hsla(0, 60%, 60%, 0.9), 
+            hsla(120, 60%, 60%, 0.9), 
+            hsla(240, 60%, 60%, 0.9));
+        background-size: 200% 200%;
+        animation: gradientShift 5s ease infinite, colorfulShadow 10s infinite linear;
+    }
+
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    @keyframes colorfulShadow {
+        0% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.7); }
+        33% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.7); }
+        66% { box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); }
+        100% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.7); }
+    }
