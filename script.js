@@ -1,3 +1,142 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('modal');
+    const label = document.createElement('div');
+    const modalContent = modal.querySelector('.modal-content');
+
+    // Создаем и стилизуем ярлык
+    label.id = 'serviceLabel';
+    label.textContent = 'Запись на консультацию';
+    document.body.appendChild(label);
+
+    // Применяем анимацию градиента к ярлыку и модальному контенту
+    animateGradient(label);
+    animateGradient(modalContent);
+
+    // Создаем содержимое модального окна
+    // Удалите этот блок кода
+    modalContent.innerHTML = `
+        <span class="close">×</span>
+        <h2>Запись на консультацию</h2>
+        <form class="consultation-form">
+            <input type="text" placeholder="Ваше имя" required>
+            <input type="email" placeholder="Ваш email" required>
+            <textarea placeholder="Ваше сообщение" required></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+        <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-icon"><i class="fas fa-phone"></i></a>
+        </div>
+    `;
+
+
+    // Удалите этот блок кода
+    modalContent.style.borderRadius = '50%';
+    modalContent.style.width = '350px';
+    modalContent.style.height = '350px';
+    modalContent.style.display = 'flex';
+    modalContent.style.flexDirection = 'column';
+    modalContent.style.justifyContent = 'center';
+    modalContent.style.alignItems = 'center';
+    modalContent.style.boxSizing = 'border-box';
+    modalContent.style.alignItems = 'center';
+    modalContent.style.boxSizing = 'border-box';
+    modalContent.style.overflow = 'hidden';
+
+    const closeBtn = modal.querySelector('.close');
+
+    // Функция для анимации скрытия label
+    function hideLabel() {
+        label.style.transition = 'transform 0.5s ease-out';
+        label.style.transform = 'translateX(-100%)';
+    }
+
+    // Функция для анимации показа label
+    function showLabel() {
+        label.style.transition = 'transform 0.5s ease-in';
+        label.style.transform = 'translateX(0)';
+    }
+    // Открытие модального окна
+    label.onclick = function() {
+        modal.style.display = "flex";
+        modal.style.justifyContent = "center";
+        modal.style.alignItems = "center";
+        hideLabel();
+    }
+
+    // Закрытие модального окна
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+        showLabel();
+    }
+
+    // Закрытие модального окна при клике вне его
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            showLabel();
+        }
+    }
+
+
+    // Обработчик отправки формы
+    const form = modal.querySelector('.consultation-form');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const name = form.querySelector('input[type="text"]').value.trim();
+        const email = form.querySelector('input[type="email"]').value.trim();
+        const message = form.querySelector('textarea').value.trim();
+
+        if (!name || !email || !message) {
+            alert('Заполните все поля!');
+            return;
+        }
+
+        if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+            alert('Введите корректный email!');
+            return;
+        }
+
+        // Твой токен и chat_id
+        const TOKEN = "7698667445:AAEWssGLH1FgzBQaftgfI2o6QOS_gVlKtI8";
+        const CHAT_ID = "85203644"; // Измените на ваш правильный CHAT_ID
+        const TEXT = `📩 *Новая заявка!*\n\n👤 Имя: ${name}\n📧 Email: ${email}\n💬 Сообщение: ${message}`;
+
+        // Отправка запроса в Telegram API
+        fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: TEXT,
+                parse_mode: "Markdown"
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.ok) {
+                alert('Ваше сообщение отправлено!');
+                form.reset();
+                modal.style.display = "none";
+            } else {
+                alert('Ошибка отправки: ' + data.description);
+            }
+        })
+        .catch(error => {
+            alert('Ошибка соединения: ' + error.message);
+            console.error('Ошибка:', error);
+        });
+
+    });
+});
+
 function animateGradient(element) {
     let hue = 0;
 
@@ -22,96 +161,3 @@ function animateGradient(element) {
     updateGradient();
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const bubble = document.getElementById('serviceBubble');
-    const expandedBubble = document.getElementById('expandedBubble');
-    const label = document.createElement('div');
-
-    // Создаем и стилизуем ярлык
-    label.id = 'serviceLabel';
-    label.className = 'mobile-label';
-    label.textContent = 'Запись на консультацию';
-    document.body.appendChild(label);
-
-    // Устанавливаем позицию label
-    label.style.position = 'fixed';
-    label.style.left = '20px';
-    label.style.bottom = '20px';
-    label.style.zIndex = '1000';
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'X';
-    closeButton.className = 'close-button';
-
-    function addClickEffect(element) {
-        element.addEventListener('mousedown', function () {
-            this.style.transform = 'scale(0.95)';
-            this.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.8)';
-        });
-
-        element.addEventListener('mouseup', function () {
-            this.style.transform = 'scale(1)';
-            this.style.boxShadow = '';
-        });
-
-        element.addEventListener('mouseleave', function () {
-            this.style.transform = 'scale(1)';
-            this.style.boxShadow = '';
-        });
-    }
-
-    addClickEffect(label);
-
-    function closeBubble() {
-        expandedBubble.style.display = 'none';
-        label.style.display = 'block';
-
-        if (expandedBubble.contains(closeButton)) {
-            expandedBubble.removeChild(closeButton);
-        }
-    }
-
-    label.addEventListener('click', function () {
-        this.style.display = 'none';
-        expandedBubble.style.display = 'block';
-        expandedBubble.appendChild(closeButton);
-    });
-
-    closeButton.addEventListener('click', function (event) {
-        event.stopPropagation();
-        closeBubble();
-    });
-
-    document.addEventListener('click', function (event) {
-        if (expandedBubble.style.display === 'block' && 
-            !expandedBubble.contains(event.target) && 
-            !label.contains(event.target)) {
-            closeBubble();
-        }
-    });
-
-    // Скрываем оригинальный bubble
-    bubble.style.display = 'none';
-
-    // Добавляем стили для анимации
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        @keyframes colorfulShadow {
-            0% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.7); }
-            33% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.7); }
-            66% { box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); }
-            100% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.7); }
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Скрываем оригинальный bubble
-    bubble.style.display = 'none';
-    animateGradient(label);
-    animateGradient(expandedBubble);
-
-});
