@@ -23,95 +23,49 @@ function animateGradient(element) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const bubble = document.getElementById('serviceBubble');
     const expandedBubble = document.getElementById('expandedBubble');
     const label = document.createElement('div');
 
     // Создаем и стилизуем ярлык
     label.id = 'serviceLabel';
-    label.className = 'mobile-label';
+    label.className = 'mobile-label animate-gradient';
     label.textContent = 'Запись на консультацию';
     document.body.appendChild(label);
 
-    // Устанавливаем позицию label
-    label.style.position = 'fixed';
-    label.style.left = '20px';
-    label.style.bottom = '20px';
-    label.style.zIndex = '1000';
+    // Применяем анимацию градиента к ярлыку
+    animateGradient(label);
+
     const closeButton = document.createElement('button');
     closeButton.textContent = 'X';
     closeButton.className = 'close-button';
 
-    function addClickEffect(element) {
-        element.addEventListener('mousedown', function () {
-            this.style.transform = 'scale(0.95)';
-            this.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.8)';
-        });
-
-        element.addEventListener('mouseup', function () {
-            this.style.transform = 'scale(1)';
-            this.style.boxShadow = '';
-        });
-
-        element.addEventListener('mouseleave', function () {
-            this.style.transform = 'scale(1)';
-            this.style.boxShadow = '';
-        });
-    }
-
-    addClickEffect(label);
-
-    function closeBubble() {
-        expandedBubble.style.display = 'none';
-        label.style.display = 'block';
-
-        if (expandedBubble.contains(closeButton)) {
+    function toggleBubble(show) {
+        expandedBubble.style.display = show ? 'block' : 'none';
+        label.style.display = show ? 'none' : 'block';
+        if (show) {
+            expandedBubble.appendChild(closeButton);
+        } else if (expandedBubble.contains(closeButton)) {
             expandedBubble.removeChild(closeButton);
         }
     }
 
-    label.addEventListener('click', function () {
-        this.style.display = 'none';
-        expandedBubble.style.display = 'block';
-        expandedBubble.appendChild(closeButton);
-    });
-
-    closeButton.addEventListener('click', function (event) {
-        event.stopPropagation();
-        closeBubble();
-    });
-
-    document.addEventListener('click', function (event) {
-        if (expandedBubble.style.display === 'block' && 
-            !expandedBubble.contains(event.target) && 
-            !label.contains(event.target)) {
-            closeBubble();
+    // Делегирование событий
+    document.body.addEventListener('click', function(event) {
+        if (event.target === label) {
+            toggleBubble(true);
+        } else if (event.target === closeButton || 
+                   (expandedBubble.style.display === 'block' && 
+                    !expandedBubble.contains(event.target) && 
+                    !label.contains(event.target))) {
+            toggleBubble(false);
         }
     });
 
     // Скрываем оригинальный bubble
-    bubble.style.display = 'none';
+    document.getElementById('serviceBubble').style.display = 'none';
 
-    // Добавляем стили для анимации
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        @keyframes colorfulShadow {
-            0% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.7); }
-            33% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.7); }
-            66% { box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); }
-            100% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.7); }
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Скрываем оригинальный bubble
-    bubble.style.display = 'none';
-    animateGradient(label);
-    animateGradient(expandedBubble);
-
+    // Добавляем классы для анимации вместо прямого изменения стилей
+    label.classList.add('animate-gradient');
+    expandedBubble.classList.add('animate-gradient');
 });
+
