@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="sphere-left"></div>
@@ -47,52 +51,26 @@
                 </div>
             </div>
         </section>
-
-        <div class="bubble" id="serviceBubble">
-            <h2>Запись на онлайн-консультацию тут:</h2>
-        </div>
-
-        <div class="expanded-bubble" id="expandedBubble" style="display: none;">
-            <button class="close-button" id="closeBubble">&times;</button>
-                <h2>Запись на прием:</h2>
-                <form class="bubbleplace">
-                    <input type="text" placeholder="Ваше имя">
-                    <input type="email" placeholder="Ваш email">
-                    <textarea placeholder="Ваше сообщение"></textarea>
-                    <button type="submit">Отправить</button>
-                </form>
-                <h2>А так же через соц. сети:</h2>
-                <div class="social-links">
-                    <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon"><i class="fas fa-phone"></i></a>
-                </div>
-        </div>
-
         <div id="modal" class="modal">
             <div class="modal-content">
-                <span class="close">×</span>
                 <h2>Запись на консультацию</h2>
-                <form class="consultation-form">
+                <form id="consultation-form">
+                    <span class="close">×</span>
                     <input type="text" placeholder="Ваше имя" required>
                     <input type="email" placeholder="Ваш email" required>
                     <textarea placeholder="Ваше сообщение" required></textarea>
                     <button type="submit">Отправить</button>
                 </form>
                 <div class="social-links">
-                    <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" class="social-icon"><i class="fas fa-phone"></i></a>
+                    <a href="#" class="social-icon" id="t"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" class="social-icon" id="wa"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" id="ph"><i class="fas fa-phone"></i></a>
                 </div>
             </div>
-        </div>
-
         </div>
     </main>
 
     <footer>
-        
         <div class="footer-content">
             <div class="info">
                 <p>Create by Mr.Green:</p>
@@ -100,18 +78,17 @@
                     <img src="Screensho.png" alt="Фото специалиста">
                 </a>
                 <p>© 2025 Все права защищены.</p>
-
             </div>
             <div class="footer-row social-links">
-                <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-                <a href="#" class="social-icon"><i class="fas fa-phone"></i></a>
+                <a href="#" class="social-icon" id="t"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="social-icon" id="wa"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-icon" id="ph"><i class="fas fa-phone"></i></a>
             </div>
-
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
+
 

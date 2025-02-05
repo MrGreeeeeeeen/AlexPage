@@ -12,39 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     animateGradient(label);
     animateGradient(modalContent);
 
-    // Создаем содержимое модального окна
-    // Удалите этот блок кода
-    modalContent.innerHTML = `
-        <span class="close">×</span>
-        <h2>Запись на консультацию</h2>
-        <form class="consultation-form">
-            <input type="text" placeholder="Ваше имя" required>
-            <input type="email" placeholder="Ваш email" required>
-            <textarea placeholder="Ваше сообщение" required></textarea>
-            <button type="submit">Отправить</button>
-        </form>
-        <div class="social-links">
-            <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="social-icon"><i class="fas fa-phone"></i></a>
-        </div>
-    `;
-
-
-    // Удалите этот блок кода
-    modalContent.style.borderRadius = '50%';
-    modalContent.style.width = '350px';
-    modalContent.style.height = '350px';
-    modalContent.style.display = 'flex';
-    modalContent.style.flexDirection = 'column';
-    modalContent.style.justifyContent = 'center';
-    modalContent.style.alignItems = 'center';
-    modalContent.style.boxSizing = 'border-box';
-    modalContent.style.alignItems = 'center';
-    modalContent.style.boxSizing = 'border-box';
-    modalContent.style.overflow = 'hidden';
-
     const closeBtn = modal.querySelector('.close');
+    const form = document.getElementById('consultation-form');
 
     // Функция для анимации скрытия label
     function hideLabel() {
@@ -57,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         label.style.transition = 'transform 0.5s ease-in';
         label.style.transform = 'translateX(0)';
     }
+
     // Открытие модального окна
     label.onclick = function() {
         modal.style.display = "flex";
@@ -66,75 +36,70 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Закрытие модального окна
-    closeBtn.onclick = function() {
-        modal.style.display = "none";
-        showLabel();
-    }
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+    showLabel();
+    label.style.transform = ''; // Сброс transform
+}
 
     // Закрытие модального окна при клике вне его
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-            showLabel();
-        }
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        showLabel();
+        label.style.transform = ''; // Сброс transform
+    }
+}
+    // Обработчик отправки формы
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = form.querySelector('input[type="text"]').value.trim();
+            const email = form.querySelector('input[type="email"]').value.trim();
+            const message = form.querySelector('textarea').value.trim();
+
+            if (!name || !email || !message) {
+                alert('Заполните все поля!');
+                return;
+            }
+
+            if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+                alert('Введите корректный email!');
+                return;
+            }
+
+            // Отправка данных на сервер
+            fetch('/send-message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    message: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Ваше сообщение отправлено!');
+                    form.reset();
+                    modal.style.display = "none";
+                    showLabel(); // Показываем ярлык
+                    label.style.transform = ''; // Сброс transform
+                } else {
+                    alert('Ошибка отправки: ' + data.error);
+                }
+            })
+            .catch(error => {
+                alert('Ошибка соединения: ' + error.message);
+                console.error('Ошибка:', error);
+            });
+        });
+    } else {
+        console.error('Форма с идентификатором "consultation-form" не найдена.');
     }
 
-
-    // Обработчик отправки формы
-    const form = modal.querySelector('.consultation-form');
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const name = form.querySelector('input[type="text"]').value.trim();
-        const email = form.querySelector('input[type="email"]').value.trim();
-        const message = form.querySelector('textarea').value.trim();
-
-        if (!name || !email || !message) {
-            alert('Заполните все поля!');
-            return;
-        }
-
-        if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-            alert('Введите корректный email!');
-            return;
-        }
-
-        // Твой токен и chat_id
-        const TOKEN = "7698667445:AAEWssGLH1FgzBQaftgfI2o6QOS_gVlKtI8";
-        const CHAT_ID = "85203644"; // Измените на ваш правильный CHAT_ID
-        const TEXT = `📩 *Новая заявка!*\n\n👤 Имя: ${name}\n📧 Email: ${email}\n💬 Сообщение: ${message}`;
-
-        // Отправка запроса в Telegram API
-        fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: TEXT,
-                parse_mode: "Markdown"
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.ok) {
-                alert('Ваше сообщение отправлено!');
-                form.reset();
-                modal.style.display = "none";
-            } else {
-                alert('Ошибка отправки: ' + data.description);
-            }
-        })
-        .catch(error => {
-            alert('Ошибка соединения: ' + error.message);
-            console.error('Ошибка:', error);
-        });
-
-    });
 });
 
 function animateGradient(element) {
@@ -160,4 +125,3 @@ function animateGradient(element) {
 
     updateGradient();
 }
-
